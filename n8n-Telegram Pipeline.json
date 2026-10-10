@@ -1,0 +1,99 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "1997045605",
+        "text": "*System Alert*\\n\\nData pengguna baharu Abdul Muhaimin (ID: 11) berjaya diproses!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        0
+      ],
+      "id": "3fda106a-5e5e-42e7-8d06-d3b4adaa3e76",
+      "name": "Send a text message",
+      "webhookId": "7850470d-0584-49af-a512-077c2b7fd749",
+      "credentials": {
+        "telegramApi": {
+          "id": "CwFiEsgYEGIyRAXT",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "10326d1a-26c7-4584-b609-97792afe8abf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b078988b-82c8-4236-bf59-ecf3e51b4102",
+      "name": "Webhook",
+      "webhookId": "10326d1a-26c7-4584-b609-97792afe8abf"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"={{ $json.body.name }}\",\n  \"email\": \"={{ $json.body.email }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        272,
+        0
+      ],
+      "id": "acf0aa21-799d-43f6-bbf1-14ac083327a6",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d0b2ac6f-7486-4364-91bd-bb791f710687",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0e0fe9e5e96f6c7a79fe861e968fa2f84b740975b2c0d9e31533feb5433140f7"
+  },
+  "nodeGroups": [],
+  "id": "uUrIe4uHhzwHayVK",
+  "tags": []
+}
